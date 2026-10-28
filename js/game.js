@@ -303,9 +303,8 @@
     const isTop = G.newRows.some((n) => rows[0] && n.score === rows[0].score && n.who === rows[0].who && n.at === rows[0].at);
     setText(best, isTop ? '⭐ NEW HI-SCORE!' : G.newRows.length ? '⭐ ON THE BOARD!' : '');
     best.classList.toggle('new', G.newRows.length > 0);
-    // the winner (both brothers in 2 players, or on a tie) does his signature move
-    const bestScore = Math.max(...ps.map((p) => p.score));
-    G.scene2 = { kind: 'win', who: ps.length === 2 && !won ? ps.map((p) => p.who) : ps.filter((p) => p.score === bestScore).map((p) => p.who), t: 0 };
+    // the climber (both brothers in 2 players: they climbed together) does his signature move
+    G.scene2 = { kind: 'win', who: ps.length === 2 ? ps.map((p) => p.who) : [ps[0].who], t: 0 };
     showScreen('results');
     Kit.sound.music('over');
   }
@@ -897,8 +896,14 @@
     spectatorClouds[0].visible = spectatorClouds[1].visible = false;
     if (w.two || G.demo || (G.scene2 && G.scene2.kind === 'win')) return;
     const cheer = G.cheerT > 0 || (G.scene2 && G.scene2.kind === 'clear');
-    [['foxy', -9.7], ['froggy', 9.7]].forEach(([id, x], i) => {
+    // they stand in the strips beside the play area, when the screen has room there (not under the touch pads)
+    const W = innerWidth, px = G.k || 30, zf = (CAM.D - 1.7) / CAM.D;
+    const edgeL = toScreen(S.X0, w.camY, 0)[0], edgeR = W - toScreen(-S.X0, w.camY, 0)[0];
+    const pads = document.body.classList.contains('touch') && G.screen === 'play';
+    [['foxy', edgeL, edgeL / 2], ['froggy', edgeR, W - edgeR / 2]].forEach(([id, room, sx], i) => {
+      if (room < 40 || pads) return;
       const P = people[id];
+      const x = CAM.x + ((sx - W / 2) / px) * zf;
       const y = w.camY + 0.55 + Math.sin(G.time * 1.5 + i) * 0.08;
       P.root.visible = true;
       P.root.scale.setScalar(SCALE * 0.92);
