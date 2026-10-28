@@ -130,7 +130,7 @@
     let top = short ? 48 : narrow ? 56 : 66, bottom = 6, left = 58, right = 10;
     if (document.body.classList.contains('touch') && (G.screen === 'play' || G.screen === 'pause')) {
       const two = G.w && G.w.two;
-      if (H > W) bottom = two ? 290 : 222;
+      if (H > W) bottom = W <= 520 ? (two ? 170 : 290) : two ? 290 : 222;
       else {
         left = short ? 196 : 226;
         right = two ? (short ? 154 : 184) : short ? 180 : 214;
@@ -205,7 +205,7 @@
     $('budBtn').querySelector('img').style.display = w.two ? 'none' : '';
     document.querySelector('.tb.call img').src = img;
     setText($('budLbl'), w.two ? '✋ HIGH FIVE' : `CALL ${NAME(who)}`);
-    setText(document.querySelector('.tb.call small'), w.two ? 'HIGH FIVE' : 'CALL');
+    setText(document.querySelector('.tb.call small'), w.two ? 'HIGH 5' : 'CALL');
     document.querySelectorAll('.tag2').forEach((t) => setText(t, NAME(w.players[+t.dataset.name] ? w.players[+t.dataset.name].who : 'tommy')));
   }
   function call() {
@@ -997,7 +997,7 @@
     put(i, k, x) {
       const w = G.w, p = w.players[i || 0];
       Object.assign(p, { x, y: k * L, vx: 0, vy: 0, mode: 'ground', sup: S.supportAt(w, x, k, S.FW) || { k: 'g', f: k }, dizzy: 0, inv: 0, bub: null, swing: 0 });
-      if (k > w.hiLayer) { w.hiLayer = k; }
+      if (k > w.hiLayer) { w.hiLayer = k; if (k >= MT.ICE_TOP && !w.bonus.on) { S.startBonus(w); handleEvents(w.events.splice(0)); } }
       return state();
     },
     // no seals or birds (tests that only look at moving)

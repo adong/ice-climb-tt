@@ -277,3 +277,32 @@
   }
   game.playCheck = run;
 })();
+// layout: the kit's left-edge buttons, the HUD and the touch pads never cover the play area (the 16 columns, from the
+// bottom of the screen to the top of the climb) or each other; the smallest tap target is reported
+(function () {
+  'use strict';
+  game.layoutCheck = function () {
+    const S = IC.sim, w = game.world();
+    const r = (el) => el && el.getBoundingClientRect();
+    const hit = (a, b) => a && b && a.width && b.width && a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+    const shown = (e) => e && e.offsetParent !== null && getComputedStyle(e).visibility !== 'hidden' && getComputedStyle(e).display !== 'none';
+    const kit = ['kit-help-btn', 'kit-lang-btn', 'kit-sound-btn'].map((id) => document.getElementById(id)).filter(shown);
+    const touch = [...document.querySelectorAll('#touch .dk, #touch .tb')].filter(shown);
+    const hud = [...document.querySelectorAll('#hud .box, #hud .ibtn, #hud .bud')].filter(shown);
+    const [x0, y0] = game.toScreen(S.X0, w.camY + S.VIEW_H), [x1, y1] = game.toScreen(-S.X0, w.camY - 0.05);
+    const area = { left: x0, top: y0, right: x1, bottom: y1, width: x1 - x0, height: y1 - y0 };
+    const name = (e) => e.id || (e.dataset && e.dataset.k ? `${e.dataset.k}${e.dataset.p || ''}` : e.className);
+    const bad = [];
+    for (const k of kit) {
+      for (const c of touch.concat(hud)) if (hit(r(k), r(c))) bad.push(`${k.id} x ${name(c)}`);
+      if (hit(r(k), area)) bad.push(`${k.id} x play area`);
+    }
+    for (const c of touch) {
+      if (hit(r(c), area)) bad.push(`${name(c)} x play area`);
+      for (const d of touch) if (c !== d && name(c) < name(d) && hit(r(c), r(d))) bad.push(`${name(c)} x ${name(d)}`);
+    }
+    const sizes = touch.map((e) => Math.round(Math.min(r(e).width, r(e).height)));
+    return { touch: document.body.classList.contains('touch'), two: w.two, area: [x0, y0, x1, y1].map(Math.round), k: +(game.G.k || 0).toFixed(1), bad, smallestTap: sizes.length ? Math.min(...sizes) : null, scroll: document.documentElement.scrollHeight > innerHeight + 2 };
+  };
+  window.layoutCheck = game.layoutCheck;
+})();

@@ -623,6 +623,6 @@
   IC.sim = {
     DT, L, BH, PH, BW, FW, X0, COLS, VIEW_H, ICE_TOP, TOP, LEVELS, TREATS, BUDDY_INTRO, BUDDY_END,
     create, loadMountain, step, call, cell, solid, breakable, supportAt, bodyHitsGrid, colOf, cloudAt, setCell, playing,
-    spawnSeal, spawnBird, bubbleTarget,
+    spawnSeal, spawnBird, bubbleTarget, startBonus,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -1,0 +1,79 @@
+[
+ {
+  "label": "muted zh",
+  "js": "localStorage.setItem('claudeGames.muted', '1'); localStorage.setItem('claudeGames.lang', 'zh'); location.reload(); 'reload'",
+  "wait": 5000
+ },
+ {
+  "label": "title",
+  "js": "game.hold(true); game.calm(); game.step(1); new Promise(r => setTimeout(() => r(JSON.stringify(Kit.lang.untranslated())), 300))",
+  "shot": "zh-title"
+ },
+ {
+  "label": "help",
+  "js": "Kit.help.open(); new Promise(r => setTimeout(() => { const u = Kit.lang.untranslated(); Kit.help.close(); r(JSON.stringify(u)); }, 300))",
+  "shot": "zh-help"
+ },
+ {
+  "label": "title 2P normal touch",
+  "js": "document.body.classList.add('touch'); document.querySelector('[data-players=\"2\"]').click(); document.querySelector('[data-level=\"normal\"]').click(); game.step(0.2); new Promise(r => setTimeout(() => r(JSON.stringify(Kit.lang.untranslated())), 300))"
+ },
+ {
+  "label": "play ready",
+  "js": "document.querySelector('[data-players=\"1\"]').click(); document.querySelector('[data-level=\"easy\"]').click(); game.start({level:'easy'}); game.step(0.5); new Promise(r => setTimeout(() => r(JSON.stringify(Kit.lang.untranslated())), 300))",
+  "shot": "zh-ready"
+ },
+ {
+  "label": "buddy smash",
+  "js": "game.step(1.2); game.call(); game.step(1.3); new Promise(r => setTimeout(() => r(JSON.stringify(Kit.lang.untranslated())), 300))",
+  "shot": "zh-buddy"
+ },
+ {
+  "label": "pops",
+  "js": "(() => { const w = game.world(); game.quiet(); game.put(0, 1, -5.5); w.players[0].face = 1; w.seals.push({ id: 801, k: 1, x: -4.5, dir: -1, carry: false, st: 'walk', t: 0, life: 20, vy: 0, y: 2.4, wait: 0, home: 1 }); dispatchEvent(new KeyboardEvent('keydown', {code:'KeyX'})); game.step(0.3); dispatchEvent(new KeyboardEvent('keyup', {code:'KeyX'})); w.birds.push({ id: 802, x: -5.2, y: 3.3, ty: 3.3, vx: 0, t: 0, st: 'fly', turns: 0, vy: 0 }); game.step(0.4); w.hiLayer = 4; game.step(2.5); return new Promise(r => setTimeout(() => r(JSON.stringify(Kit.lang.untranslated())), 200)); })()",
+  "shot": "zh-pops"
+ },
+ {
+  "label": "pause",
+  "js": "game.pause(); new Promise(r => setTimeout(() => { const u = Kit.lang.untranslated(); game.resume(); r(JSON.stringify(u)); }, 300))",
+  "shot": "zh-pause"
+ },
+ {
+  "label": "bonus + veg + clear",
+  "js": "(() => { const w = game.world(); game.quiet(); game.put(0, 8, w.clouds.find(c => c.k === 9 && !c.v).x); game.step(0.2); const s = w.clouds.find(c => c.summit); game.put(0, 12, s.x); w.big.x = s.x; w.big.dir = 1; dispatchEvent(new KeyboardEvent('keydown', {code:'Space'})); game.step(0.4); dispatchEvent(new KeyboardEvent('keyup', {code:'Space'})); game.step(0.6); return new Promise(r => setTimeout(() => r(JSON.stringify({ u: Kit.lang.untranslated(), phase: game.state().phase })), 300)); })()",
+  "shot": "zh-clear"
+ },
+ {
+  "label": "next mountain",
+  "js": "game.step(4.4); new Promise(r => setTimeout(() => r(JSON.stringify({ u: Kit.lang.untranslated(), mi: game.state().mi })), 300))",
+  "shot": "zh-next"
+ },
+ {
+  "label": "time up",
+  "js": "(() => { const w = game.world(); w.phase = 'play'; game.put(0, 12, 0); w.bonus.on = true; w.bonus.t = 0.1; game.step(0.5); return new Promise(r => setTimeout(() => r(JSON.stringify(Kit.lang.untranslated())), 300)); })()"
+ },
+ {
+  "label": "1P game over results",
+  "js": "(() => { game.start({ level: 'normal', go: true }); const w = game.world(); w.players[0].lives = 1; game.put(0, 1, -5.5); w.seals.push({ id: 803, k: 1, x: -4.9, dir: -1, carry: false, st: 'walk', t: 0, life: 20, vy: 0, y: 2.4, wait: 0, home: 1 }); game.step(3); return new Promise(r => setTimeout(() => r(JSON.stringify({ u: Kit.lang.untranslated(), screen: game.state().screen })), 300)); })()",
+  "shot": "zh-over"
+ },
+ {
+  "label": "2P touch play + high five + out",
+  "js": "(() => { document.body.classList.add('touch'); game.start({ players: 2, level: 'easy', go: true }); game.step(0.3); game.call(); game.step(0.6); const w = game.world(); w.players[1].lives = 1; game.put(1, 1, -5.5); w.seals.push({ id: 804, k: 1, x: -4.9, dir: -1, carry: false, st: 'walk', t: 0, life: 20, vy: 0, y: 2.4, wait: 0, home: 1 }); game.step(0.3); return new Promise(r => setTimeout(() => r(JSON.stringify(Kit.lang.untranslated())), 300)); })()",
+  "shot": "zh-2p"
+ },
+ {
+  "label": "2P results",
+  "js": "(() => { const w = game.world(); w.players[0].lives = 1; game.put(0, 1, -5.5); w.seals.push({ id: 805, k: 1, x: -4.9, dir: -1, carry: false, st: 'walk', t: 0, life: 20, vy: 0, y: 2.4, wait: 0, home: 1 }); game.step(3); return new Promise(r => setTimeout(() => r(JSON.stringify({ u: Kit.lang.untranslated(), screen: game.state().screen })), 300)); })()",
+  "shot": "zh-2p-results"
+ },
+ {
+  "label": "won results",
+  "js": "(() => { document.body.classList.remove('touch'); game.start({ level: 'easy', go: true, mountain: 7 }); const w = game.world(); game.quiet(); const s = w.clouds.find(c => c.summit); game.put(0, 12, s.x); w.bonus.on = true; w.big.x = s.x; w.big.dir = 1; dispatchEvent(new KeyboardEvent('keydown', {code:'Space'})); game.step(0.4); dispatchEvent(new KeyboardEvent('keyup', {code:'Space'})); game.step(6); return new Promise(r => setTimeout(() => r(JSON.stringify({ u: Kit.lang.untranslated(), screen: game.state().screen, phase: game.state().phase })), 300)); })()",
+  "shot": "zh-won"
+ },
+ {
+  "label": "english has no Chinese (only the kit's language button names 中文)",
+  "js": "(() => { Kit.lang.set('en'); const scan = () => { const out = []; document.querySelectorAll('*').forEach((e) => { if (e.id === 'kit-lang-btn' || (e.classList && e.classList.contains('kh-lang'))) return; for (const n of e.childNodes) if (n.nodeType === 3 && /[\\u3400-\\u9fff]/.test(n.textContent)) out.push((e.id || e.className || e.tagName) + ': ' + n.textContent.trim()); for (const a of ['title', 'aria-label', 'placeholder']) { const v = e.getAttribute && e.getAttribute(a); if (v && /[\\u3400-\\u9fff]/.test(v)) out.push((e.id || e.className || e.tagName) + ' @' + a + ': ' + v); } }); return out; }; return new Promise(r => setTimeout(() => { const a = scan(); Kit.help.open(); setTimeout(() => { const b = scan(); Kit.help.close(); game.showTitle(); setTimeout(() => r(JSON.stringify({ results: a, help: b, title: scan() })), 300); }, 300); }, 300)); })()"
+ }
+]

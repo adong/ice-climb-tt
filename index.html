@@ -168,7 +168,7 @@
   #tp1 .dk[data-k="r"] { right: max(14px, env(safe-area-inset-right)); }
   #tp1 .tb.jump { right: max(14px, env(safe-area-inset-right)); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 90px); width: 76px; height: 76px; font-size: 30px; }
   #tp1 .tb.swing { right: calc(max(14px, env(safe-area-inset-right)) + 84px); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 90px); width: 76px; height: 76px; }
-  body.two .tb.call { right: auto; left: 50%; margin-left: -40px; bottom: max(14px, env(safe-area-inset-bottom)); }
+  body.two .tb.call { right: calc(max(14px, env(safe-area-inset-right)) + 2px); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 196px); }
   .tpad .tag2 { position: absolute; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 172px); font: 800 12px/1 'Rubik', sans-serif; padding: 3px 8px; border-radius: 999px; background: rgba(20, 18, 31, 0.6); display: none; }
   body.two .tpad .tag2 { display: block; }
   #tp0 .tag2 { left: calc(max(10px, env(safe-area-inset-left)) + 52px); }
@@ -184,7 +184,7 @@
     body.two #tp0 .tb.jump, body.two #tp0 .tb.swing, #tp1 .tb.jump, #tp1 .tb.swing { width: 62px; height: 62px; font-size: 24px; bottom: calc(max(14px, env(safe-area-inset-bottom)) + 72px); }
     body.two #tp0 .tb.swing { left: calc(max(10px, env(safe-area-inset-left)) + 120px); }
     #tp1 .dk[data-k="l"], #tp1 .tb.swing { right: calc(max(14px, env(safe-area-inset-right)) + 68px); }
-    body.two .tb.call { margin-left: -33px; }
+    body.two .tb.call { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 162px); }
     .tpad .tag2 { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 140px); }
     .box { padding: 3px 8px; min-width: 76px; }
     .box b { font-size: 16px; }
@@ -202,6 +202,22 @@
     .hudbar { gap: 4px; }
     .left, .right { gap: 4px; }
     .bars { top: calc(max(6px, env(safe-area-inset-top)) + 52px); }
+  }
+
+  /* narrow phones held upright: the buttons stack up on the right (1 player), or two small pads with the high five between */
+  @media (max-width: 520px) {
+    #tp0 .tb.swing { right: calc(max(14px, env(safe-area-inset-right)) + 12px); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 112px); }
+    .tb.call { right: calc(max(14px, env(safe-area-inset-right)) + 12px); bottom: calc(max(14px, env(safe-area-inset-bottom)) + 200px); }
+    body.two .dk, body.two #tp0 .tb.jump, body.two #tp0 .tb.swing, body.two #tp1 .tb.jump, body.two #tp1 .tb.swing { width: 64px; height: 64px; font-size: 26px; }
+    body.two #tp0 .dk[data-k="l"], body.two #tp0 .tb.jump { left: max(10px, env(safe-area-inset-left)); }
+    body.two #tp0 .dk[data-k="r"], body.two #tp0 .tb.swing { left: calc(max(10px, env(safe-area-inset-left)) + 70px); }
+    body.two #tp1 .dk[data-k="r"], body.two #tp1 .tb.jump { right: max(10px, env(safe-area-inset-right)); }
+    body.two #tp1 .dk[data-k="l"], body.two #tp1 .tb.swing { right: calc(max(10px, env(safe-area-inset-right)) + 70px); }
+    body.two #tp0 .tb.jump, body.two #tp0 .tb.swing, body.two #tp1 .tb.jump, body.two #tp1 .tb.swing { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 74px); }
+    body.two .tpad .tag2 { bottom: calc(max(14px, env(safe-area-inset-bottom)) + 144px); }
+    body.two #tp0 .tag2 { left: max(10px, env(safe-area-inset-left)); }
+    body.two #tp1 .tag2 { right: max(10px, env(safe-area-inset-right)); }
+    body.two .tb.call { width: 66px; height: 66px; right: auto; left: 50%; margin-left: -33px; bottom: max(14px, env(safe-area-inset-bottom)); }
   }
 
   /* ---------- screens ---------- */

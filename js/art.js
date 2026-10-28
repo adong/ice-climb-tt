@@ -111,14 +111,17 @@
     g.add(hills);
     A.hills = hills;
     // the mountain's own sides, left and right of the climb: snowy rock in chunky ledges, snow on every ledge
-    const rock = mat('#b9cbe4', { roughness: 0.95 }), rockDark = mat('#8ea6c8', { roughness: 0.95 }), ledgeSnow = mat('#ffffff', { roughness: 0.9 });
+    const rock = mat('#cddcf0', { roughness: 0.95 }), rockDark = mat('#8fa3c2', { roughness: 0.95 }), ledgeSnow = mat('#ffffff', { roughness: 0.9 });
     const sideParts = [], darkParts = [], snowParts = [];
     for (const sx of [-1, 1]) {
       for (let i = 0; i < 15; i++) {
         const y = -2 + i * 2.4;
         const w = 4.2 + Math.sin(i * 1.7 + sx) * 0.9;
         sideParts.push(at(new T.BoxGeometry(w, 2.4, 3.2), sx * (8 + w / 2), y + 1.0, -0.4));
-        darkParts.push(at(new T.BoxGeometry(w * 0.7, 0.9, 0.2), sx * (8.6 + w * 0.35), y + 0.5, 1.25));
+        // a few lumpy boulders and a pine poking out of the snow
+        const bx = sx * (8.7 + ((i * 37) % 23) / 10), br = 0.45 + ((i * 13) % 5) / 10;
+        darkParts.push(at(new T.DodecahedronGeometry(br, 0), bx, y + 0.35 + ((i * 7) % 4) / 5, 1.25, i, i * 2, 0));
+        if (i % 3 === 1) snowParts.push(at(new T.DodecahedronGeometry(br * 0.7, 0), bx + sx * 0.2, y + 0.75 + ((i * 7) % 4) / 5, 1.35, i, 0, 0));
         snowParts.push(at(new T.BoxGeometry(w + 0.15, 0.22, 3.3), sx * (8 + w / 2 - 0.05), y + 2.25, -0.4));
       }
     }

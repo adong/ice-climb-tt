@@ -1,0 +1,7 @@
+[
+ { "label": "muted", "js": "localStorage.setItem('claudeGames.muted', '1'); localStorage.setItem('claudeGames.lang', 'en'); location.reload(); 'reload'", "wait": 5000 },
+ { "label": "title", "js": "game.hold(true); game.calm(); game.step(1); JSON.stringify({ touch: document.body.classList.contains('touch'), scroll: document.getElementById('title').scrollHeight > innerHeight + 2 })", "wait": 300, "shot": "L-title" },
+ { "label": "1P play overlaps", "js": "(() => { game.start({ level: 'easy', go: true }); game.step(1); return JSON.stringify(window.layoutCheck()); })()", "wait": 300, "shot": "L-play" },
+ { "label": "2P play overlaps", "js": "(() => { game.start({ level: 'easy', go: true, players: 2 }); game.step(1); return JSON.stringify(window.layoutCheck()); })()", "wait": 300, "shot": "L-play2" },
+ { "label": "results", "js": "(() => { const w = game.world(); w.players.forEach((p) => (p.lives = 1)); game.put(0, 1, -5.5); game.put(1, 1, 5.5); w.seals.push({ id: 904, k: 1, x: -4.9, dir: -1, carry: false, st: 'walk', t: 0, life: 20, vy: 0, y: 2.4, wait: 0, home: 1 }, { id: 905, k: 1, x: 6.1, dir: 1, carry: false, st: 'walk', t: 0, life: 20, vy: 0, y: 2.4, wait: 0, home: 1 }); game.step(4); return JSON.stringify({ screen: game.state().screen, scroll: document.getElementById('results').scrollHeight > innerHeight + 2 }); })()", "wait": 800, "shot": "L-results" }
+]

@@ -70,6 +70,20 @@
       return [!bad.length, bad.length ? bad.slice(0, 4).join('; ') : `climbed ${n} mountain runs (avg ${(t / n).toFixed(0)} s each) and the whole game (${r.t} s, ${got} vegetables, ${w.players[0].score} points)`];
     },
 
+    autopilotNormal() {
+      // not in the brief, but it shows 🔥 NORMAL plays all the way through: the seal refilling holes, more birds
+      const bad = [];
+      let info = [];
+      for (const seed of [5, 29]) {
+        const w = S().create({ level: 'normal', seed, go: true });
+        let got = 0;
+        const r = autoplay(w, 8 * 240, { until: (ww) => ww.phase === 'won' || ww.phase === 'over', each: (ww) => { for (const e of ww.events) if (e.type === 'bigVeg') got++; } });
+        if (r.phase !== 'won') bad.push(`seed ${seed}: ${r.phase} on ${w.D.id}`);
+        info.push(`${r.t} s, ${got} vegetables, ${r.lost} lives lost`);
+      }
+      return [!bad.length, bad.length ? bad.join('; ') : `whole NORMAL games: ${info.join('; ')}`];
+    },
+
     jumpBreaksOnlyAbove(sab) {
       const bad = [];
       let breaks = 0, holes = 0, hard = 0;
